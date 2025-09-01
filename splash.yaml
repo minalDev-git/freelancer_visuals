@@ -1,0 +1,31 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # Background color for the splash screen
+  color: "#FFFFFF"
+
+  # Background color for the splash screen in dark mode
+  color_dark: "#181820"
+
+  # Image asset for the splash screen
+  image: assets/logos/logo_with_bg.png
+
+  # Image asset for the splash screen in dark mode
+  image_dark: assets/logos/logo_with_bg.png
+  #branding: assets/logos/splash_logo.png
+
+  # Configuration for Android 12 splash screen
+  android_12:
+    # Background color for the splash screen
+    color: "#FFFFFF"
+
+    # Background color for the splash screen in dark mode
+    color_dark: "#181820"
+
+    # Image asset for the splash screen
+    image: assets/logos/logo_with_bg.png
+
+    # Image asset for the splash screen in dark mode
+    image_dark: assets/logos/logo_with_bg.png
