@@ -1,10 +1,10 @@
-# freelancer_visuals
+# Freelancer Financial Dashboard
 
-A new Flutter project.
+A complete financial dashboard for freelancers.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+The Freelancer Financial Dashboard is an application designed to address the unique financial management needs of freelancers. It will provide an all-in-one platform to track irregular income, manage multiple client invoices, and gain a clear picture of financial health. The app will feature income tracking, push notifications for late invoices, invoice generation, in-app file sharing, exporting the file as a PDF and insightful reports with visual analytics. It aims to help freelancers make informed financial decisions, stay organised, and save time by centralising all financial information in one intuitive dashboard.
 
 A few resources to get you started if this is your first Flutter project:
 
