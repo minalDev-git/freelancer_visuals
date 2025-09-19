@@ -3,14 +3,15 @@ import 'package:freelancer_visuals/core/theme/app_pallete.dart';
 
 class AuthButton extends StatelessWidget {
   final String text;
-  const AuthButton({super.key, required this.text});
+  final VoidCallback onPressed;
+  const AuthButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppPallete.primary,
           shadowColor: AppPallete.transparentColor,

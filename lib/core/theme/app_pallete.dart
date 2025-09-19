@@ -27,6 +27,7 @@ class AppPallete {
   // static const Color primary = Color(0xFF5A4FF4);
   static const Color primary = Color(0xFF1771FF);
   static const Color greyColor = Colors.grey;
+  static const Color blackColor = Colors.black;
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
 }

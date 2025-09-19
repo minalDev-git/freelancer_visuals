@@ -14,7 +14,8 @@ flutter_native_splash:
 
   # Image asset for the splash screen in dark mode
   image_dark: assets/logos/logo_with_bg.png
-  #branding: assets/logos/splash_logo.png
+  # branding: assets\logos\branding_light.png
+  # branding_dark: assets\logos\branding_image_dark.png
 
   # Configuration for Android 12 splash screen
   android_12:
@@ -29,3 +30,6 @@ flutter_native_splash:
 
     # Image asset for the splash screen in dark mode
     image_dark: assets/logos/logo_with_bg.png
+
+    # branding: assets\logos\branding_light.png
+    # branding_dark: assets\logos\branding_image_dark.png

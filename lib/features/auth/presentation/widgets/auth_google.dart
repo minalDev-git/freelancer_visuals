@@ -3,14 +3,19 @@ import 'package:freelancer_visuals/core/theme/app_pallete.dart';
 
 class AuthGoogleButton extends StatelessWidget {
   final String text;
-  const AuthGoogleButton({super.key, required this.text});
+  final VoidCallback onPressed;
+  const AuthGoogleButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppPallete.transparentColor,
           shadowColor: AppPallete.transparentColor,
@@ -20,9 +25,16 @@ class AuthGoogleButton extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(vertical: 14),
         ),
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/logos/google_logo.png', width: 20, height: 20),
+            const SizedBox(width: 10),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ],
         ),
       ),
     );
