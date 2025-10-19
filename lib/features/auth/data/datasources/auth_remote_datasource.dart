@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDatasource {
+  Session? get currentUserSession;
   Future<UserModel> signUpWithEmailPassword({
     required String name,
     required String email,
@@ -14,16 +15,26 @@ abstract interface class AuthRemoteDatasource {
     required String email,
     required String password,
   });
+  Future<UserModel?> getCurrentUserData();
 
-  // Future<AuthResponse> googleSignUp(String name, String email, String password);
   Future<UserModel> handleGoogleAuth();
-  // Future<void> signOut();
+
+  Future<double> getTotalEarningsForMonth({
+    required String userId,
+    required int month,
+    required int year,
+  });
+
+  Future<void> signOut();
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   final SupabaseClient supabaseClient;
 
   AuthRemoteDatasourceImpl(this.supabaseClient);
+
+  @override
+  Session? get currentUserSession => supabaseClient.auth.currentSession;
 
   @override
   Future<UserModel> loginWithEmailPassword({
@@ -39,7 +50,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw const ServerException('Unsuccessful Login!');
       }
       // print(response.user!.id);
-      return UserModel.fromJson(response.user!.toJson());
+      return UserModel.fromJson(
+        response.user!.toJson(),
+      ).copyWith(email: currentUserSession!.user.email);
     } catch (e) {
       // print(e.toString());
       throw ServerException(e.toString());
@@ -62,7 +75,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw const ServerException('Unsuccessful Sign Up!');
       }
       // print(response.user!.id);
-      return UserModel.fromJson(response.user!.toJson());
+      return UserModel.fromJson(
+        response.user!.toJson(),
+      ).copyWith(email: currentUserSession!.user.email);
     } catch (e) {
       // print(e.toString());
       throw ServerException(e.toString());
@@ -106,7 +121,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
           .maybeSingle();
 
       if (existingUser != null) {
-        return UserModel.fromJson(existingUser);
+        return UserModel.fromJson(
+          existingUser,
+        ).copyWith(email: currentUserSession!.user.email);
       }
 
       // 🔹 Step 2: If not found, insert new profile
@@ -121,43 +138,64 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
           .insert(newUser)
           .select()
           .single();
-      return UserModel.fromJson(insertedUser);
+      return UserModel.fromJson(
+        insertedUser,
+      ).copyWith(email: currentUserSession!.user.email);
     } catch (e) {
       throw ServerException(e.toString());
     }
   }
 
-  // @override
-  // Future<void> signOut() async {
-  //   await supabaseClient.auth.signOut();
-  // }
+  @override
+  Future<UserModel?> getCurrentUserData() async {
+    try {
+      if (currentUserSession != null) {
+        final userData = await supabaseClient
+            .from('profiles')
+            .select()
+            .eq('id', currentUserSession!.user.id);
+        return UserModel.fromJson(
+          userData.first,
+        ).copyWith(email: currentUserSession!.user.email);
+      }
+      return null;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<double> getTotalEarningsForMonth({
+    required String userId,
+    required int month,
+    required int year,
+  }) async {
+    try {
+      final response = await supabaseClient
+          .from('earnings_history')
+          .select('amount')
+          .eq('user_id', userId)
+          .eq('month', month)
+          .eq('year', year);
+
+      if (response.isEmpty) {
+        return 0.0;
+      }
+
+      // Sum all the 'amount' values for that month
+      final total = response.fold<double>(
+        0.0,
+        (sum, record) => sum + (record['amount'] as num).toDouble(),
+      );
+
+      return total;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await supabaseClient.auth.signOut();
+  }
 }
-  // @override
-  // Future<AuthResponse> googleSignUp(
-  //   String name,
-  //   String email,
-  //   String password,
-  // ) async {
-  //   const webClientId = AppSecrets.webClientId;
-  //   const iosClientId = AppSecrets.iosClientId;
-
-  //   try {
-  //     final GoogleSignIn googleSignIn = GoogleSignIn.instance;
-  //     await googleSignIn.initialize(
-  //       clientId: iosClientId,
-  //       serverClientId: webClientId,
-  //     );
-
-  //     final response = await supabaseClient.auth.signUp(
-  //       email: email,
-  //       password: password,
-  //       data: {'name': name},
-  //     );
-  //     if (response.user == null) {
-  //       throw const ServerException('Unsuccessful Login with Google!');
-  //     }
-  //     return response;
-  //   } catch (e) {
-  //     throw ServerException(e.toString());
-  //   }
-  // }

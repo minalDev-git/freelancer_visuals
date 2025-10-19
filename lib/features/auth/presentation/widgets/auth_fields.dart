@@ -26,6 +26,20 @@ class AuthField extends StatelessWidget {
         if (value!.isEmpty) {
           return "$hintText is missing!";
         }
+        // Check for email
+        if (hintText.toLowerCase().contains("email")) {
+          final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+          if (!emailRegex.hasMatch(value)) {
+            return "Please enter a valid email";
+          }
+        }
+
+        // Check for password
+        if (hintText.toLowerCase().contains("password")) {
+          if (value.length < 6) {
+            return "Password should contain at least 6 characters";
+          }
+        }
         return null;
       },
     );

@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/core/usecase/usecase.dart';
-import 'package:freelancer_visuals/features/auth/domain/entities/user.dart';
+import 'package:freelancer_visuals/core/common/entities/user.dart';
 import 'package:freelancer_visuals/features/auth/domain/repository/auth_repository.dart';
 
 class UserLogin implements UseCase<User, UserLoginParams> {
@@ -9,9 +9,9 @@ class UserLogin implements UseCase<User, UserLoginParams> {
 
   const UserLogin(this.authRepository);
   @override
-  Future<Either<Failure, User>> call([UserLoginParams? params]) async {
+  Future<Either<Failure, User>> call(UserLoginParams params) async {
     return await authRepository.loginWithEmailPassword(
-      email: params!.email,
+      email: params.email,
       password: params.password,
     );
   }
@@ -20,6 +20,5 @@ class UserLogin implements UseCase<User, UserLoginParams> {
 class UserLoginParams {
   final String email;
   final String password;
-
   UserLoginParams({required this.email, required this.password});
 }

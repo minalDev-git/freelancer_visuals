@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freelancer_visuals/core/error/exceptions.dart';
 import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:freelancer_visuals/features/auth/domain/entities/user.dart';
+import 'package:freelancer_visuals/core/common/entities/user.dart';
 import 'package:freelancer_visuals/features/auth/domain/repository/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 // import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,6 +11,20 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource authRemoteDatasource;
 
   const AuthRepositoryImpl(this.authRemoteDatasource);
+
+  @override
+  Future<Either<Failure, User>> currentUser() async {
+    try {
+      final user = await authRemoteDatasource.getCurrentUserData();
+      if (user == null) {
+        return left(Failure('User not logged in'));
+      }
+      return right(user);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
   @override
   Future<Either<Failure, User>> handleGoogleAuth() async {
     try {
@@ -55,6 +69,34 @@ class AuthRepositoryImpl implements AuthRepository {
       return right(user);
     } on sb.AuthException catch (e) {
       return left(Failure(e.message));
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, double>> getTotalEarningsForMonth({
+    required String userId,
+    required int month,
+    required int year,
+  }) async {
+    try {
+      final earnings = await authRemoteDatasource.getTotalEarningsForMonth(
+        userId: userId,
+        month: month,
+        year: year,
+      );
+      return right(earnings);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      await authRemoteDatasource.signOut();
+      return right(null);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

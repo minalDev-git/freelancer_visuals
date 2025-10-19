@@ -14,6 +14,11 @@ class AppTheme {
       backgroundColor: AppPallete.darkBackgroundColor,
       surfaceTintColor: AppPallete.darkBackgroundColor,
     ),
+    chipTheme: const ChipThemeData(
+      color: WidgetStatePropertyAll(AppPallete.darkBackgroundColor),
+      side: BorderSide.none,
+      padding: EdgeInsets.all(5),
+    ),
     primaryColor: AppPallete.primary,
     colorScheme: const ColorScheme.dark(
       surface: AppPallete.darkSurface,
@@ -24,8 +29,10 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(15),
+      border: _border(),
       enabledBorder: _border(),
       focusedBorder: _border(Colors.white),
+      errorBorder: _border(AppPallete.darkError),
     ),
   );
   static final lightThemeMode = ThemeData.light().copyWith(
@@ -33,6 +40,10 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppPallete.lightBackgroundColor,
       surfaceTintColor: AppPallete.lightBackgroundColor,
+    ),
+    chipTheme: const ChipThemeData(
+      color: WidgetStatePropertyAll(AppPallete.darkBackgroundColor),
+      side: BorderSide.none,
     ),
     primaryColor: AppPallete.primary,
     colorScheme: ColorScheme.light(
@@ -46,8 +57,10 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(15),
+      border: _border(),
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.lightFocusedBorder),
+      errorBorder: _border(AppPallete.lightError),
     ),
   );
 }

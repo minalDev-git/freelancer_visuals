@@ -7,6 +7,7 @@ import 'package:freelancer_visuals/features/auth/presentation/bloc/auth_bloc.dar
 import 'package:freelancer_visuals/features/auth/presentation/widgets/auth_button.dart';
 import 'package:freelancer_visuals/features/auth/presentation/widgets/auth_fields.dart';
 import 'package:freelancer_visuals/features/auth/presentation/widgets/auth_google.dart';
+import 'package:freelancer_visuals/features/auth/presentation/widgets/terms_of_use.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -55,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
             },
             builder: (context, state) {
               if (state is AuthLoading) {
-                return const Loader();
+                return Center(child: const Loader());
               }
               return Form(
                 key: formKey,
@@ -82,46 +83,8 @@ class _SignupPageState extends State<SignupPage> {
                       isObsecureText: true,
                       controller: _passwordController,
                     ),
-                    const SizedBox(height: 30),
-                    Text(
-                      'By continuing you agree to our',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/terms/',
-                              (route) => false,
-                            );
-                          },
-                          child: Text(
-                            'Terms & Conditions ',
-                            style: Theme.of(context).textTheme.titleMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Text(
-                          'and',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/policy/',
-                              (route) => false,
-                            );
-                          },
-                          child: Text(
-                            ' Privacy Policy',
-                            style: Theme.of(context).textTheme.titleMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
+                    const SizedBox(height: 10),
+                    TermsOfUse(),
                     const SizedBox(height: 20),
                     AuthButton(
                       text: 'Sign Up',
