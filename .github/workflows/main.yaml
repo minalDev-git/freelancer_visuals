@@ -8,38 +8,50 @@ on:
       - main
       - master
       - develop
+
 name: "Build & Release"
+
 jobs:
   build:
     name: Build & Release
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ✅ Java 17 must be set FIRST
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
-      - uses: subosito/flutter-action@v2
+
+      # ✅ Then install Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
+          flutter-version: "3.35.6"
           channel: "stable"
           architecture: x64
 
-      - run: flutter build apk --release --split-per-abi
-      - run: |
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Build Android APK (split per ABI)
+        run: flutter build apk --release --split-per-abi
+
+      - name: Build iOS (no codesign)
+        run: |
           flutter build ios --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
+          mv Runner.app Payload/
           zip -r app.ipa Payload
+
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
-# push to master, main, develop
-# pull request on main master
