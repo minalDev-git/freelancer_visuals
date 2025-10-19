@@ -72,11 +72,11 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.calendar_today),
-                      SizedBox(width: 10),
+                      const Icon(Icons.calendar_today),
+                      const SizedBox(width: 10),
                       Text(
                         'Created At ${formatDateddMMMYYYY(widget.client.createdAt)}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -90,7 +90,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
             const SizedBox(height: 20),
 
             /// ─── Contact Information ───────────────────────────────────────────
-            SectionHeader(title: 'Contact Information'),
+            const SectionHeader(title: 'Contact Information'),
             const SizedBox(height: 10),
             InfoTile(
               icon: Icons.email,
@@ -106,7 +106,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
             const SizedBox(height: 30),
 
             /// ─── Active (Pending) Projects ─────────────────────────────────
-            SectionHeader(title: 'Active Projects'),
+            const SectionHeader(title: 'Active Projects'),
             const SizedBox(height: 10),
 
             BlocBuilder<ProjectBloc, ProjectState>(
@@ -140,7 +140,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
             const SizedBox(height: 10),
 
             /// ─── Completed Projects ───────────────────────────────────────
-            SectionHeader(title: 'Completed Projects'),
+            const SectionHeader(title: 'Completed Projects'),
             const SizedBox(height: 10),
 
             BlocBuilder<ProjectBloc, ProjectState>(

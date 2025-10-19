@@ -23,7 +23,7 @@ class InvoiceDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle headingStyle = const TextStyle(
+    const TextStyle headingStyle = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
     );
@@ -143,7 +143,7 @@ class InvoiceDetailsPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Items Section
-            Text("Items", style: headingStyle),
+            const Text("Items", style: headingStyle),
             const SizedBox(height: 12),
 
             _buildItemRow("UIX Re-Design", "€ 5,200"),

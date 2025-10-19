@@ -82,17 +82,17 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Earnings',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'This  month',
                           style: TextStyle(
                             fontSize: 16,
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           '\$7150.00',
                           style: TextStyle(
                             fontSize: 40,
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadiusGeometry.circular(10),
                           ),
                           avatar: const Icon(Icons.arrow_upward),
-                          label: Text(
+                          label: const Text(
                             '12.5%',
                             style: TextStyle(
                               fontSize: 16,
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(10),
                           color: Theme.of(context).colorScheme.secondary,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5),
                                     Text(
                                       'Projects',
                                       style: TextStyle(fontSize: 18),
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5),
                                     Text(
                                       'This month',
                                       style: TextStyle(fontSize: 15),
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            const VerticalDivider(
+                            VerticalDivider(
                               thickness: 2,
                               color: Colors.white,
                               indent: 10,
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5),
                                     Text(
                                       'Clients',
                                       style: TextStyle(fontSize: 18),
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5),
                                     Text(
                                       'This month',
                                       style: TextStyle(fontSize: 15),
@@ -269,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
+              const SizedBox(
                 height: 400,
                 width: double.infinity, // ✅ gives ListView a bounded width
                 child: OngoingProjects(),

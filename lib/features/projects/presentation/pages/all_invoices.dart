@@ -35,8 +35,8 @@ class _AllInvoicesState extends State<AllInvoices> {
                     color: AppPallete.darkEnabledBorder,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(10),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
@@ -142,7 +142,7 @@ class _AllInvoicesState extends State<AllInvoices> {
                           status: 'complete',
                           onPressed: () {},
                           color: Theme.of(context).colorScheme.tertiary,
-                          smallCard: Row(
+                          smallCard: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -216,7 +216,7 @@ class _AllInvoicesState extends State<AllInvoices> {
       floatingActionButton: FloatingActionButton(
         heroTag: 2,
         onPressed: () {},
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

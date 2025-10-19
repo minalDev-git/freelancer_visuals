@@ -20,7 +20,10 @@ class AuthGoogleButton extends StatelessWidget {
           backgroundColor: AppPallete.transparentColor,
           shadowColor: AppPallete.transparentColor,
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: AppPallete.lightEnabledBorder, width: 3),
+            side: const BorderSide(
+              color: AppPallete.lightEnabledBorder,
+              width: 3,
+            ),
             borderRadius: BorderRadius.circular(30),
           ),
           padding: const EdgeInsets.symmetric(vertical: 14),

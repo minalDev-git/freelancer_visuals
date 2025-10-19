@@ -55,7 +55,7 @@ class _AddNewClientPageState extends State<AddNewClientPage> {
           onPressed: () {
             Navigator.of(context).pushReplacementNamed('/allclients/');
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
       body: BlocConsumer<ClientBloc, ClientState>(
@@ -68,7 +68,7 @@ class _AddNewClientPageState extends State<AddNewClientPage> {
         },
         builder: (context, state) {
           if (state is ClientLoading) {
-            return Center(child: const Loader());
+            return const Center(child: Loader());
           }
           return SingleChildScrollView(
             child: Padding(

@@ -49,7 +49,7 @@ class PdfApi {
                     padding: const pw.EdgeInsets.all(20),
                     decoration: pw.BoxDecoration(
                       borderRadius: pw.BorderRadius.circular(12),
-                      gradient: pw.LinearGradient(
+                      gradient: const pw.LinearGradient(
                         colors: [PdfColors.blue, PdfColors.purple],
                         begin: pw.Alignment.topLeft,
                         end: pw.Alignment.bottomRight,
@@ -57,7 +57,10 @@ class PdfApi {
                     ),
                     child: pw.Row(
                       children: [
-                        pw.Icon(pw.IconData(0xe876), color: PdfColors.white),
+                        pw.Icon(
+                          const pw.IconData(0xe876),
+                          color: PdfColors.white,
+                        ),
                         pw.SizedBox(width: 8),
                         pw.Text(
                           "INVOICE",

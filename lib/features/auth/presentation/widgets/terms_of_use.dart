@@ -9,7 +9,7 @@ class TermsOfUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
@@ -18,29 +18,29 @@ class TermsOfUse extends StatelessWidget {
           children: [
             TextSpan(
               text: 'Terms & Conditions ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   // Open diaglog of Terms & conditions
                   showModal(
                     context: context,
-                    configuration: FadeScaleTransitionConfiguration(),
+                    configuration: const FadeScaleTransitionConfiguration(),
                     builder: (context) {
                       return PolicyDialog(mdFileName: 'terms_conditions.md');
                     },
                   );
                 },
             ),
-            TextSpan(text: 'and '),
+            const TextSpan(text: 'and '),
             TextSpan(
               text: 'Privacy Policy',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   // Open diaglog of Privacy policy
                   showModal(
                     context: context,
-                    configuration: FadeScaleTransitionConfiguration(),
+                    configuration: const FadeScaleTransitionConfiguration(),
                     builder: (context) {
                       return PolicyDialog(mdFileName: 'privacy_policy.md');
                     },

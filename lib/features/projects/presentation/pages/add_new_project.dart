@@ -61,7 +61,7 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
           onPressed: () {
             Navigator.of(context).pushReplacementNamed('/clientdetails/');
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
       body: SingleChildScrollView(
@@ -155,7 +155,7 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
                     );
                   }
                 },
-                style: ButtonStyle(),
+                style: const ButtonStyle(),
                 child: const Text('Add New Project'),
               ),
             ],

@@ -24,7 +24,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(10),
@@ -52,7 +52,7 @@ class CardWidget extends StatelessWidget {
                           Text(
                             title,
                             softWrap: true,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
@@ -60,7 +60,7 @@ class CardWidget extends StatelessWidget {
                           Text(
                             desc,
                             softWrap: true,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: AppPallete.greyColor,
@@ -76,13 +76,13 @@ class CardWidget extends StatelessWidget {
                   ? StatusChip(color: color, status: status)
                   : IconButton(
                       onPressed: onPressed,
-                      icon: Icon(Icons.arrow_forward_ios, size: 20),
+                      icon: const Icon(Icons.arrow_forward_ios, size: 20),
                     ),
             ],
           ),
           const SizedBox(height: 20),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(10),

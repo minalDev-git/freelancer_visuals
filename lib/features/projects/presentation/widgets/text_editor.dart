@@ -17,7 +17,9 @@ class TextEditor extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
-        hint: Row(children: [Text(hintText, style: TextStyle(fontSize: 16))]),
+        hint: Row(
+          children: [Text(hintText, style: const TextStyle(fontSize: 16))],
+        ),
         // hintText: hintText,
       ),
       validator: (value) {

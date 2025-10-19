@@ -83,7 +83,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     maxY: maxY,
                     gridData: const FlGridData(show: false),
                     borderData: FlBorderData(show: false),
-                    titlesData: FlTitlesData(
+                    titlesData: const FlTitlesData(
                       show: true,
                       topTitles: AxisTitles(
                         sideTitles: SideTitles(showTitles: false),
@@ -233,7 +233,7 @@ class _DashboardPageState extends State<DashboardPage> {
 }
 
 Widget getBottomTiles(double value, TitleMeta meta) {
-  final textStyle = const TextStyle(
+  const textStyle = TextStyle(
     color: Colors.grey,
     fontWeight: FontWeight.bold,
     fontSize: 14,
@@ -286,7 +286,7 @@ Widget getBottomTiles(double value, TitleMeta meta) {
 }
 
 Widget getLeftTiles(double value, TitleMeta meta) {
-  final textStyle = const TextStyle(
+  const textStyle = TextStyle(
     color: Colors.grey,
     fontWeight: FontWeight.bold,
     fontSize: 14,

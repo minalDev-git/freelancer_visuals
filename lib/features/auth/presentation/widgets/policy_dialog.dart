@@ -26,14 +26,16 @@ class PolicyDialog extends StatelessWidget {
         children: [
           Expanded(
             child: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 150)).then((value) {
+              future: Future.delayed(const Duration(milliseconds: 150)).then((
+                value,
+              ) {
                 return rootBundle.loadString('assets/app_policy/$mdFileName');
               }),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Markdown(data: snapshot.requireData);
                 }
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),

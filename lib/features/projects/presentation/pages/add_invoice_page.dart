@@ -84,20 +84,17 @@ class _InvoicePageState extends State<InvoicePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = const TextStyle(
-      fontWeight: FontWeight.w600,
-      fontSize: 16,
-    );
+    const textStyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 16);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Create Invoice"),
+          title: const Text("Create Invoice"),
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
         ),
         body: SingleChildScrollView(
@@ -137,7 +134,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Issue Date", style: textStyle),
+                        const Text("Issue Date", style: textStyle),
                         const SizedBox(height: 6),
                         InkWell(
                           onTap: () => _pickDate(context, true),
@@ -170,7 +167,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Due Date", style: textStyle),
+                        const Text("Due Date", style: textStyle),
                         const SizedBox(height: 6),
                         InkWell(
                           onTap: () => _pickDate(context, false),
@@ -302,7 +299,7 @@ class _InvoicePageState extends State<InvoicePage> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () => _signatureController.clear(),
-                child: Text("Clear"),
+                child: const Text("Clear"),
               ),
               const SizedBox(height: 20),
               CreateButton(

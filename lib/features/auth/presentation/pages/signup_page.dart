@@ -42,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
               context,
             ).pushNamedAndRemoveUntil('/login/', (route) => false);
           },
-          icon: Icon(Icons.arrow_back_ios_rounded),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
         ),
       ),
       body: SingleChildScrollView(
@@ -56,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
             },
             builder: (context, state) {
               if (state is AuthLoading) {
-                return Center(child: const Loader());
+                return const Center(child: Loader());
               }
               return Form(
                 key: formKey,
@@ -84,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _passwordController,
                     ),
                     const SizedBox(height: 10),
-                    TermsOfUse(),
+                    const TermsOfUse(),
                     const SizedBox(height: 20),
                     AuthButton(
                       text: 'Sign Up',

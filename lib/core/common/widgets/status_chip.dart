@@ -12,7 +12,7 @@ class StatusChip extends StatelessWidget {
       color: WidgetStatePropertyAll(color),
       label: Text(
         status,
-        style: TextStyle(fontSize: 15, color: AppPallete.blackColor),
+        style: const TextStyle(fontSize: 15, color: AppPallete.blackColor),
       ),
     );
   }

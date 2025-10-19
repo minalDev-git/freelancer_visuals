@@ -54,7 +54,7 @@ class _AllClientsState extends State<AllClients> {
           onPressed: () {
             Navigator.of(context).pushReplacementNamed('/home/');
           },
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
       body: Scrollbar(
@@ -116,7 +116,10 @@ class _AllClientsState extends State<AllClients> {
                             child: ListTile(
                               title: Text(client.clientName),
                               subtitle: Text(client.createdAt.toString()),
-                              trailing: Icon(Icons.arrow_forward_ios, size: 15),
+                              trailing: const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                              ),
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -167,7 +170,7 @@ class _AllClientsState extends State<AllClients> {
           Navigator.of(context).pushReplacementNamed('/addclient/');
         },
         heroTag: 1,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

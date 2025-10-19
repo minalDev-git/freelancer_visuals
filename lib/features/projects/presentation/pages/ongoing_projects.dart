@@ -49,7 +49,7 @@ class _OngoingProjectsState extends State<OngoingProjects> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
                     horizontal: 16.0,
                   ),
@@ -64,7 +64,7 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Flexible(
+                          const Flexible(
                             flex: 10,
                             child: Text(
                               // project.projectName,
@@ -79,23 +79,23 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                           IconButton(
                             //proj_details
                             onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios),
+                            icon: const Icon(Icons.arrow_forward_ios),
                             iconSize: 20,
                           ),
                         ],
                       ),
 
                       const SizedBox(height: 10),
-                      Row(
+                      const Row(
                         children: [
-                          const Text(
+                          Text(
                             'Start Date:',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(width: 10),
+                          SizedBox(width: 10),
                           Text(
                             // project.startDate.toString(),
                             '12-12-21',
@@ -107,16 +107,16 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Row(
+                      const Row(
                         children: [
-                          const Text(
+                          Text(
                             'Est. Completion: ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5),
                           Text(
                             '12-12-21',
                             style: TextStyle(
@@ -127,7 +127,7 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'Client\'s Name: ',
@@ -149,16 +149,16 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Amount: ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Chip(
-                            label: Text(
+                            label: const Text(
                               // project.ammount.toString(),
                               '\$400',
                               style: TextStyle(
@@ -211,7 +211,7 @@ class _OngoingProjectsState extends State<OngoingProjects> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            barRadius: Radius.circular(10),
+                            barRadius: const Radius.circular(10),
                             progressColor: progressPercent < 0.75
                                 ? Colors.green
                                 : progressPercent < 1.0

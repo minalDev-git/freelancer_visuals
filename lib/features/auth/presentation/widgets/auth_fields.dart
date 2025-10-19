@@ -17,9 +17,9 @@ class AuthField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(fontSize: 18),
+        hintStyle: const TextStyle(fontSize: 18),
       ),
-      style: TextStyle(fontSize: 20),
+      style: const TextStyle(fontSize: 20),
       autocorrect: true,
       obscureText: isObsecureText,
       validator: (value) {

@@ -4,6 +4,6 @@ void showSnackBar(BuildContext context, String content) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(
-      SnackBar(content: Text(content, style: TextStyle(fontSize: 18))),
+      SnackBar(content: Text(content, style: const TextStyle(fontSize: 18))),
     );
 }

@@ -29,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onPageChanged: (value) => setState(() {
             _isLastPage = value == 3;
           }),
-          children: [
+          children: const [
             OnBoardingPage(
               imagePath: 'assets/images/clients.png',
               title: 'Manage Clients Easily',
@@ -92,7 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               )
             : Container(
                 key: const ValueKey('navBtns'), // important for switch
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppPallete.lightBackgroundColor,
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -118,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: SmoothPageIndicator(
                         controller: _controller,
                         count: 4,
-                        effect: WormEffect(
+                        effect: const WormEffect(
                           spacing: 16,
                           dotColor: Colors.black26,
                           activeDotColor: AppPallete.blackColor,
@@ -172,7 +172,7 @@ class OnBoardingPage extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
               color: AppPallete.lightTextSecondary,
@@ -182,7 +182,7 @@ class OnBoardingPage extends StatelessWidget {
           // const SizedBox(height: 20),
           Text(
             subTitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: AppPallete.lightTextSecondary,

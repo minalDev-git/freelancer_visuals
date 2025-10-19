@@ -119,7 +119,10 @@ class _AllProjectsState extends State<AllProjects> {
                             child: ListTile(
                               title: Text(project.projectName),
                               subtitle: Text(project.status.toValue()),
-                              trailing: Icon(Icons.arrow_forward_ios, size: 15),
+                              trailing: const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                              ),
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -173,7 +176,7 @@ class _AllProjectsState extends State<AllProjects> {
           );
         },
         heroTag: 3,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

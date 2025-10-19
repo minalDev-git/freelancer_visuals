@@ -10,7 +10,7 @@ class AppTheme {
       );
   static final darkThemeMode = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppPallete.darkBackgroundColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppPallete.darkBackgroundColor,
       surfaceTintColor: AppPallete.darkBackgroundColor,
     ),
@@ -37,7 +37,7 @@ class AppTheme {
   );
   static final lightThemeMode = ThemeData.light().copyWith(
     scaffoldBackgroundColor: AppPallete.lightBackgroundColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppPallete.lightBackgroundColor,
       surfaceTintColor: AppPallete.lightBackgroundColor,
     ),
@@ -46,7 +46,7 @@ class AppTheme {
       side: BorderSide.none,
     ),
     primaryColor: AppPallete.primary,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       surface: AppPallete.lightSurface,
       primary: AppPallete.primary,
       secondary: AppPallete.lightSecondarySurface,

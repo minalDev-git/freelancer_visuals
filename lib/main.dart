@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
           if (isLoggedIn) {
             return const MainScreen();
           }
-          return LoginPage();
+          return const LoginPage();
         },
       ),
     );
