@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/core/usecase/usecase.dart';
-import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
+import 'package:freelancer_visuals/features/projects/domain/entities/invoice.dart';
 import 'package:freelancer_visuals/features/projects/domain/repositories/invoice_repository.dart';
 
 class GetTotalInvoicesByStatus
@@ -19,7 +19,7 @@ class GetTotalInvoicesByStatus
 
 class TotalInvoicesByStatusParams {
   final String userId;
-  final PStatus status;
+  final IStatus status;
 
   TotalInvoicesByStatusParams({required this.userId, required this.status});
 }

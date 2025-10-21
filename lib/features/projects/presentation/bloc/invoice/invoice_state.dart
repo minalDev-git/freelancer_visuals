@@ -14,8 +14,8 @@ final class InvoiceFailure extends InvoiceState {
 }
 
 final class InvoiceDisplaySuccess extends InvoiceState {
-  final List<Invoice> clients;
-  InvoiceDisplaySuccess(this.clients);
+  final List<Invoice> invoices;
+  InvoiceDisplaySuccess(this.invoices);
 }
 
 final class InvoiceUploadSuccess extends InvoiceState {}

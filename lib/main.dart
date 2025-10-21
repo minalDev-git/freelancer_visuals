@@ -83,8 +83,8 @@ class _MyAppState extends State<MyApp> {
         '/home/': (context) => const HomePage(),
         '/addclient/': (context) => const AddNewClientPage(),
         '/allprojs/': (context) => const AllProjects(),
-        '/allclients/': (context) => const AllClients(),
-        '/allinvoices/': (context) => const AllInvoices(),
+        '/allclients/': (context) => const ClientsPage(),
+        '/allinvoices/': (context) => const AllInvoices(client: null),
       },
       // home: const OnboardingScreen(),
       home: BlocSelector<AppUserCubit, AppUserState, bool>(

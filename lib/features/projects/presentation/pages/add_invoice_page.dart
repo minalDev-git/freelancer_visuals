@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:freelancer_visuals/features/projects/domain/entities/client.dart';
-import 'package:freelancer_visuals/features/projects/presentation/bloc/project/project_bloc.dart';
+
 import 'package:freelancer_visuals/features/projects/presentation/pages/pdf_api.dart';
 import 'package:freelancer_visuals/features/projects/presentation/widgets/create_button.dart';
 
 import 'package:signature/signature.dart';
 
 class InvoicePage extends StatefulWidget {
-  final Client client;
-  final String projectId;
-  final String userId;
-  const InvoicePage({
-    super.key,
-    required this.client,
-    required this.projectId,
-    required this.userId,
-  });
+  final Client? client;
+  const InvoicePage({super.key, required this.client});
   @override
   State<InvoicePage> createState() => _InvoicePageState();
 }
@@ -25,6 +18,7 @@ class _InvoicePageState extends State<InvoicePage> {
   final TextEditingController invoiceController = TextEditingController();
   final TextEditingController projectController = TextEditingController();
   final TextEditingController accountController = TextEditingController();
+  final TextEditingController ammountController = TextEditingController();
 
   DateTime? issueDate;
   DateTime? dueDate;
@@ -66,19 +60,12 @@ class _InvoicePageState extends State<InvoicePage> {
   }
 
   @override
-  void initState() {
-    context.read<ProjectBloc>().add(
-      ProjectSearch(projectName: projectController.text.trim()),
-    );
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _signatureController.dispose();
     invoiceController.dispose();
     projectController.dispose();
     accountController.dispose();
+    ammountController.dispose();
     super.dispose();
   }
 
@@ -107,12 +94,6 @@ class _InvoicePageState extends State<InvoicePage> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-
-              // Invoice #
-              const Text(
-                "Invoice #",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
               const SizedBox(height: 6),
               TextField(
                 controller: invoiceController,
@@ -282,6 +263,27 @@ class _InvoicePageState extends State<InvoicePage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Total Due Ammount",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: ammountController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: "Enter the ammount",
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
 
@@ -311,7 +313,8 @@ class _InvoicePageState extends State<InvoicePage> {
                     createdAt: DateTime.now(),
                     paymentMethod: selectedPaymentMethod,
                     projectName: projectController.text.trim(),
-                    amount: 50,
+                    amount: double.parse(ammountController.text.trim()),
+                    accountNumber: accountController.text.trim(),
                     client: widget.client,
                   );
 

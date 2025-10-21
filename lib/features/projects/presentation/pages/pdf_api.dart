@@ -12,7 +12,8 @@ class PdfApi {
   final String? paymentMethod;
   final String projectName;
   final double amount;
-  final Client client;
+  final String accountNumber;
+  final Client? client;
   PdfApi({
     required this.invoiceNum,
     required this.createdAt,
@@ -20,6 +21,7 @@ class PdfApi {
     required this.projectName,
     required this.amount,
     required this.client,
+    required this.accountNumber,
   });
   Future<File> generatePDFInvoice(
     Uint8List? signatureBytes,
@@ -92,9 +94,9 @@ class PdfApi {
                     ),
                   ),
                   pw.SizedBox(height: 4),
-                  pw.Text(client.clientName),
-                  pw.Text(client.companyName),
-                  pw.Text(client.clientEmail),
+                  pw.Text('Client'),
+                  pw.Text('ABC Company'),
+                  pw.Text('client@gmail.com'),
                   pw.Divider(height: 30),
                   // Project Section
                   pw.Text(
@@ -116,16 +118,37 @@ class PdfApi {
                   pw.SizedBox(height: 8),
 
                   pw.Divider(height: 30),
-
-                  // Payment Method
-                  pw.Text(
-                    "Payment Method",
-                    style: pw.TextStyle(
-                      fontWeight: pw.FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                  pw.Row(
+                    children: [
+                      pw.Column(
+                        children: [
+                          // Payment Method
+                          pw.Text(
+                            "Payment Method",
+                            style: pw.TextStyle(
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          pw.Text(paymentMethod!),
+                        ],
+                      ),
+                      pw.Column(
+                        children: [
+                          // Payment Method
+                          pw.Text(
+                            "Account Number",
+                            style: pw.TextStyle(
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          pw.Text(accountNumber),
+                        ],
+                      ),
+                    ],
                   ),
-                  pw.Text(paymentMethod!),
+
                   pw.Divider(height: 30),
 
                   // Total

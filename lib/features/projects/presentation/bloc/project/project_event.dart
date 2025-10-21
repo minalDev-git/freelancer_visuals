@@ -81,6 +81,12 @@ final class ProjectSearch extends ProjectEvent {
   ProjectSearch({required this.projectName});
 }
 
+final class ProjectSearchByID extends ProjectEvent {
+  final String projectId;
+
+  ProjectSearchByID({required this.projectId});
+}
+
 final class ProjectSearchByStatus extends ProjectEvent {
   final String clientId;
   final PStatus status;

@@ -29,7 +29,14 @@ class _AllProjectsState extends State<AllProjects> {
     super.initState();
     final userId =
         (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-    context.read<ProjectBloc>().add(AllProjectsList(userId: userId));
+
+    if (widget.client == null) {
+      context.read<ProjectBloc>().add(AllProjectsList(userId: userId));
+    } else {
+      context.read<ProjectBloc>().add(
+        AllClientProjects(userId: userId, clientId: widget.client!.clientId),
+      );
+    }
   }
 
   @override
@@ -58,8 +65,21 @@ class _AllProjectsState extends State<AllProjects> {
 
   @override
   Widget build(BuildContext context) {
+    final isClientSelected = widget.client != null;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+        title: Text(
+          isClientSelected
+              ? '${widget.client!.clientName} Projects'
+              : 'All Projects',
+        ),
+      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(
@@ -126,8 +146,10 @@ class _AllProjectsState extends State<AllProjects> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProjectDetailsPage(project: project),
+                                    builder: (context) => ProjectDetailsPage(
+                                      client: widget.client!,
+                                      project: project,
+                                    ),
                                   ),
                                 );
                               },
@@ -168,13 +190,32 @@ class _AllProjectsState extends State<AllProjects> {
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AddNewProjectsPage(client: widget.client!),
-            ),
-          );
-        },
+        onPressed: isClientSelected
+            ? () async {
+                // Wait for AddNewProjectsPage to finish (it returns when Navigator.pop() is called there)
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        AddNewProjectsPage(client: widget.client!),
+                  ),
+                );
+
+                // After returning, refresh the project list
+                final userId =
+                    (context.read<AppUserCubit>().state as AppUserLoggedIn)
+                        .user
+                        .id;
+                context.read<ProjectBloc>().add(
+                  AllClientProjects(
+                    userId: userId,
+                    clientId: widget.client!.clientId,
+                  ),
+                );
+              }
+            : null, // Disabled if no client selected
+        backgroundColor: isClientSelected
+            ? Theme.of(context).colorScheme.primary
+            : Colors.grey,
         heroTag: 3,
         child: const Icon(Icons.add),
       ),

@@ -4,9 +4,8 @@ import 'package:freelancer_visuals/core/utils/format_date.dart';
 import 'package:freelancer_visuals/features/projects/domain/entities/client.dart';
 import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
 import 'package:freelancer_visuals/features/projects/presentation/bloc/project/project_bloc.dart';
+import 'package:freelancer_visuals/features/projects/presentation/pages/add_new_project.dart';
 import 'package:freelancer_visuals/features/projects/presentation/pages/all_projects.dart';
-
-import 'package:freelancer_visuals/features/projects/presentation/pages/edit_client.dart';
 import 'package:freelancer_visuals/features/projects/presentation/widgets/card_widget.dart';
 import 'package:freelancer_visuals/features/projects/presentation/widgets/create_button.dart';
 
@@ -174,11 +173,12 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
 
             const SizedBox(height: 30),
             CreateButton(
-              text: 'Edit Client',
+              text: 'Add Project',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => EditClientPage(client: widget.client),
+                    builder: (context) =>
+                        AddNewProjectsPage(client: widget.client),
                   ),
                 );
               },

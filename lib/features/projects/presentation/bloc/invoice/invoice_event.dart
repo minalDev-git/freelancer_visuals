@@ -37,6 +37,13 @@ final class AllInvoicesByStatusList extends InvoiceEvent {
   });
 }
 
+final class CountAllInvoicesByStatus extends InvoiceEvent {
+  final String userId;
+  final IStatus status;
+
+  CountAllInvoicesByStatus({required this.userId, required this.status});
+}
+
 final class InvoiceByStatus extends InvoiceEvent {
   final String invoiceId;
   final PStatus status;
@@ -52,14 +59,14 @@ final class InvoiceDelete extends InvoiceEvent {
 
 final class InvoiceSearch extends InvoiceEvent {
   final String invoiceId;
-  final PStatus status;
+  final IStatus status;
 
   InvoiceSearch({required this.status, required this.invoiceId});
 }
 
 final class InvoiceSearchByStatus extends InvoiceEvent {
   final String invoiceId;
-  final PStatus status;
+  final IStatus status;
 
   InvoiceSearchByStatus({required this.invoiceId, required this.status});
 }
@@ -67,7 +74,7 @@ final class InvoiceSearchByStatus extends InvoiceEvent {
 final class AllInvoiceSearchByStatus extends InvoiceEvent {
   final String userId;
   final String clientId;
-  final PStatus status;
+  final IStatus status;
 
   AllInvoiceSearchByStatus({
     required this.userId,

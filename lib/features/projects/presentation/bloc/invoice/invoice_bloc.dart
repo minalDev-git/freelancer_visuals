@@ -8,6 +8,7 @@ import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_invoice_by_status.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_monthly_invoices.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_total_invoices.dart';
+import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_total_invoices_by_status.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/update_invoice.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/upload_invoice.dart';
 
@@ -24,6 +25,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
   final DeleteInvoice _deleteInvoice;
   final GetInvoiceByStatus _invoiceSearchByStatus;
   final GetAllInvoicesByStatus _allInvoiceSearchByStatus;
+  final GetTotalInvoicesByStatus _getCountInvoiceByStatus;
 
   InvoiceBloc({
     required UploadInvoice uploadInvoice,
@@ -35,6 +37,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
     required DeleteInvoice deleteInvoice,
     required GetInvoiceByStatus invoiceSearchByStatus,
     required GetAllInvoicesByStatus allInvoiceSearchByStatus,
+    required GetTotalInvoicesByStatus getCountInvoiceByStatus,
   }) : _uploadInvoice = uploadInvoice,
        _updateInvoice = updateInvoice,
        _invoiceSearchByStatus = invoiceSearchByStatus,
@@ -44,6 +47,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
        _getInvoice = getInvoice,
        _getMonthlyInvoices = getMonthlyInvoices,
        _getTotalInvoices = getTotalInvoices,
+       _getCountInvoiceByStatus = getCountInvoiceByStatus,
        super(InvoiceInitial()) {
     on<InvoiceEvent>((event, emit) {
       emit(InvoiceLoading());
@@ -57,6 +61,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
     on<AllInvoicesList>(_onAllInvoicesList);
     on<InvoiceSearchByStatus>(_onInvoiceSearchByStatus);
     on<AllInvoiceSearchByStatus>(_onAllInvoicesByStatus);
+    on<CountAllInvoicesByStatus>(_onCountAllInvoiceByStatus);
   }
 
   void _onUploadInvoice(InvoiceUpload event, Emitter<InvoiceState> emit) async {
@@ -176,6 +181,19 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
     res.fold(
       (l) => emit(InvoiceFailure(l.message)),
       (r) => emit(InvoiceDisplaySuccess(r)),
+    );
+  }
+
+  void _onCountAllInvoiceByStatus(
+    CountAllInvoicesByStatus event,
+    Emitter<InvoiceState> emit,
+  ) async {
+    final res = await _getCountInvoiceByStatus(
+      TotalInvoicesByStatusParams(userId: event.userId, status: event.status),
+    );
+    res.fold(
+      (l) => emit(InvoiceFailure(l.message)),
+      (r) => emit(InvoiceUploadSuccess()),
     );
   }
 }

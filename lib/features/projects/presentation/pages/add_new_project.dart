@@ -6,6 +6,7 @@ import 'package:freelancer_visuals/core/theme/app_pallete.dart';
 import 'package:freelancer_visuals/features/projects/domain/entities/client.dart';
 import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
 import 'package:freelancer_visuals/features/projects/presentation/bloc/project/project_bloc.dart';
+import 'package:freelancer_visuals/features/projects/presentation/pages/all_projects.dart';
 
 import 'package:freelancer_visuals/features/projects/presentation/widgets/text_editor.dart';
 
@@ -21,6 +22,8 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  DateTime? dueDate = DateTime.now();
+  DateTime? isIssue;
   final List<String> categories = [
     "Web Development",
     "App Development",
@@ -53,13 +56,31 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
     super.dispose();
   }
 
+  Future<void> _pickDate(BuildContext context, bool isIssue) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null) {
+      setState(() {
+        if (isIssue) {
+          dueDate = picked;
+        } else {
+          dueDate = picked;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/clientdetails/');
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -94,6 +115,29 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
                 onChanged: null,
               ),
               const SizedBox(height: 10),
+              InkWell(
+                onTap: () => _pickDate(context, true),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.calendar_today),
+                      const SizedBox(width: 8),
+                      Text(
+                        dueDate == null
+                            ? 'Select date'
+                            : "${dueDate!.day}/${dueDate!.month}/${dueDate!.year}",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               DropdownButtonFormField2<String>(
                 isExpanded: true,
                 hint: const Text("Select Category"),
@@ -146,11 +190,17 @@ class _AddNewProjectsPageState extends State<AddNewProjectsPage> {
                         projectName: titleController.text.trim(),
                         category: selectedCategory!,
                         startDate: DateTime.now(),
-                        deadline: DateTime.now(),
+                        deadline: dueDate!,
                         status: PStatus.pending,
                         ammount:
                             double.tryParse(amountController.text.trim()) ??
                             0.0,
+                      ),
+                    );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AllProjects(client: widget.client),
                       ),
                     );
                   }

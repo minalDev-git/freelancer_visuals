@@ -115,6 +115,16 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
+  Future<Either<Failure, Project>> getProjectById(String projectId) async {
+    try {
+      final project = await projectRemoteDataSource.getProjectById(projectId);
+      return right(project);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, Project>> getProjectByStatus(
     String clientId,
     PStatus status,

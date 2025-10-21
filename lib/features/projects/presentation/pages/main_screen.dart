@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_visuals/features/projects/presentation/pages/all_clients.dart';
-import 'package:freelancer_visuals/features/projects/presentation/pages/all_invoices.dart';
-import 'package:freelancer_visuals/features/projects/presentation/pages/all_projects.dart';
 
+import 'package:freelancer_visuals/features/projects/presentation/pages/add_invoice_page.dart';
+import 'package:freelancer_visuals/features/projects/presentation/pages/all_clients.dart';
+import 'package:freelancer_visuals/features/projects/presentation/pages/all_projects.dart';
 import 'package:freelancer_visuals/features/projects/presentation/pages/home_page.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,27 +13,32 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int currentPage = 0;
+  int _currentIndex = 0;
 
-  List<Widget> pages = const [
-    HomePage(),
-    AllClients(),
-    AllProjects(),
-    // DashboardPage(monthlySummary: [100, 200, 300, 400], startMonth: 0),
-    AllInvoices(),
+  final List<Widget> _pages = [
+    const HomePage(),
+    const ClientsPage(),
+    const AllProjects(),
+    const InvoicePage(client: null),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentPage, children: pages),
+      body: _pages[_currentIndex], // <- this keeps bottom nav visible
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
         child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
           selectedItemColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Colors.grey,
           elevation: 5,
           iconSize: 30,
-          currentIndex: currentPage,
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -44,11 +49,6 @@ class _MainScreenState extends State<MainScreen> {
               label: 'Invoices',
             ),
           ],
-          onTap: (value) {
-            setState(() {
-              currentPage = value;
-            });
-          },
         ),
       ),
     );

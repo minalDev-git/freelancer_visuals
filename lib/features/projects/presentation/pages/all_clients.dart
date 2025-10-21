@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelancer_visuals/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:freelancer_visuals/core/common/widgets/loader.dart';
 import 'package:freelancer_visuals/core/utils/show_snackbar.dart';
+
 import 'package:freelancer_visuals/features/projects/domain/entities/client.dart';
 import 'package:freelancer_visuals/features/projects/presentation/bloc/client/client_bloc.dart';
 import 'package:freelancer_visuals/features/projects/presentation/pages/client_details_page.dart';
@@ -10,15 +11,15 @@ import 'package:freelancer_visuals/features/projects/presentation/pages/edit_cli
 import 'package:freelancer_visuals/features/projects/presentation/widgets/show_listview.dart';
 import 'package:freelancer_visuals/features/projects/presentation/widgets/text_editor.dart';
 
-class AllClients extends StatefulWidget {
-  const AllClients({super.key});
+class ClientsPage extends StatefulWidget {
+  const ClientsPage({super.key});
 
   @override
-  State<AllClients> createState() => _AllClientsState();
+  State<ClientsPage> createState() => _ClientsPageState();
 }
 
-class _AllClientsState extends State<AllClients> {
-  final searchController = TextEditingController();
+class _ClientsPageState extends State<ClientsPage> {
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -28,33 +29,23 @@ class _AllClientsState extends State<AllClients> {
     context.read<ClientBloc>().add(AllClientsList(userId: userId));
   }
 
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
-  void _onSearchChanged(String query, BuildContext context) {
-    final userId =
-        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-    if (query.isEmpty) {
-      context.read<ClientBloc>().add(
-        AllClientsList(userId: userId),
-      ); // show all
-    } else {
-      context.read<ClientBloc>().add(ClientSearch(clientName: query));
-    }
+  void _onSearchChanged(String value, BuildContext context) {
+    context.read<ClientBloc>().add(ClientSearch(clientName: value));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Clients'),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/home/');
+            Navigator.of(
+              context,
+            ).pushNamedAndRemoveUntil('/home/', (route) => false);
           },
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Scrollbar(
@@ -107,6 +98,9 @@ class _AllClientsState extends State<AllClients> {
                         return const Center(child: Loader());
                       }
                       if (state is ClientDisplaySuccess) {
+                        if (state.clients.isEmpty) {
+                          return const Center(child: Text('No clients found.'));
+                        }
                         return ShowListview<Client>(
                           itemcount: state.clients.length,
                           items: state.clients,
@@ -163,7 +157,6 @@ class _AllClientsState extends State<AllClients> {
         ),
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {

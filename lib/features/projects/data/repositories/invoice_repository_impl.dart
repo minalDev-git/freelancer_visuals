@@ -4,7 +4,7 @@ import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/features/projects/data/datasources/invoice_remote_datasource.dart';
 import 'package:freelancer_visuals/features/projects/data/models/invoice_model.dart';
 import 'package:freelancer_visuals/features/projects/domain/entities/invoice.dart';
-import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
+
 import 'package:freelancer_visuals/features/projects/domain/repositories/invoice_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -60,7 +60,7 @@ class InvoiceRepositoryImpl implements InvoiceRepository {
   Future<Either<Failure, List<Invoice>>> getAllInvoicesByStatus(
     String userId,
     String clientId,
-    PStatus status,
+    IStatus status,
   ) async {
     try {
       final invoices = await invoiceRemoteDataSource.getAllInvoicesByStatus(
@@ -103,7 +103,7 @@ class InvoiceRepositoryImpl implements InvoiceRepository {
   @override
   Future<Either<Failure, Invoice>> getInvoiceByStatus(
     String invoiceId,
-    PStatus status,
+    IStatus status,
   ) async {
     try {
       final invoice = await invoiceRemoteDataSource.getInvoiceByStatus(
@@ -139,7 +139,7 @@ class InvoiceRepositoryImpl implements InvoiceRepository {
   @override
   Future<Either<Failure, int>> getTotalInvoicesByStatus(
     String userId,
-    PStatus status,
+    IStatus status,
   ) async {
     try {
       final count = await invoiceRemoteDataSource.getTotalInvoicesByStatus(

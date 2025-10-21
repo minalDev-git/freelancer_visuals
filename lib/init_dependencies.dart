@@ -28,6 +28,8 @@ import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/del
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_all_client_invoices.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_all_invoices.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_all_invoices_by_satus.dart';
+import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_invoice.dart';
+import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_invoice_by_status.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_monthly_invoices.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_total_invoices.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/invoice/get_total_invoices_by_status.dart';
@@ -39,6 +41,7 @@ import 'package:freelancer_visuals/features/projects/domain/usecases/project/get
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_all_projects_of_client.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_monthly_projects.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project.dart';
+import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project_by_id.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project_by_status.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_total_projects.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_total_projects_by_status.dart';
@@ -152,6 +155,7 @@ void _initProject() {
   serviceLocator.registerFactory(() => GetProject(serviceLocator()));
   serviceLocator.registerFactory(() => GetTotalProjects(serviceLocator()));
   serviceLocator.registerFactory(() => GetMonthlyProjects(serviceLocator()));
+  serviceLocator.registerFactory(() => GetProjectById(serviceLocator()));
 
   //Project Bloc
   serviceLocator.registerLazySingleton(
@@ -167,6 +171,7 @@ void _initProject() {
       getProjectByStatus: serviceLocator(),
       getTotalProjects: serviceLocator(),
       getTotalProjectsByStatus: serviceLocator(),
+      getProjectById: serviceLocator(),
     ),
   );
 }
@@ -185,6 +190,9 @@ void _initInvoice() {
   serviceLocator.registerFactory(() => UpdateInvoice(serviceLocator()));
   serviceLocator.registerFactory(() => DeleteInvoice(serviceLocator()));
   serviceLocator.registerFactory(() => GetAllInvoices(serviceLocator()));
+  serviceLocator.registerFactory(() => GetInvoice(serviceLocator()));
+  serviceLocator.registerFactory(() => GetInvoiceByStatus(serviceLocator()));
+
   serviceLocator.registerFactory(
     () => GetTotalInvoicesByStatus(serviceLocator()),
   );
@@ -206,6 +214,7 @@ void _initInvoice() {
       getTotalInvoices: serviceLocator(),
       invoiceSearchByStatus: serviceLocator(),
       allInvoiceSearchByStatus: serviceLocator(),
+      getCountInvoiceByStatus: serviceLocator(),
     ),
   );
 }

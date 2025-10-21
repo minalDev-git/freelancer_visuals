@@ -14,6 +14,7 @@ abstract interface class ProjectRemoteDataSource {
   Future<int> getMonthlyProjects(String userId);
   Future<ProjectModel> updateProject(ProjectModel project);
   Future<void> deleteProject(String projectId);
+  Future<ProjectModel> getProjectById(String projectId);
   Future<ProjectModel> getProject(String projectName);
   Future<ProjectModel> getProjectByStatus(String clientId, PStatus status);
   Future<List<ProjectModel>> getAllProjectsByStatus(
@@ -202,6 +203,20 @@ class ProjectRemoteDataSourceImpl implements ProjectRemoteDataSource {
         return res.count;
       }
       return 0;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<ProjectModel> getProjectById(String projectId) async {
+    try {
+      final res = await supabaseClient
+          .from('project')
+          .select('*')
+          .eq('project_id', projectId);
+
+      return ProjectModel.fromJson(res.first);
     } catch (e) {
       throw ServerException(e.toString());
     }

@@ -1,6 +1,7 @@
 import 'package:freelancer_visuals/core/error/exceptions.dart';
 import 'package:freelancer_visuals/features/projects/data/models/invoice_model.dart';
-import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
+import 'package:freelancer_visuals/features/projects/domain/entities/invoice.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class InvoiceRemoteDataSource {
@@ -13,13 +14,13 @@ abstract interface class InvoiceRemoteDataSource {
   Future<InvoiceModel> updateInvoice(InvoiceModel invoice);
   Future<void> deleteInvoice(String invoiceId);
   Future<InvoiceModel> getInvoice(String invoiceId);
-  Future<InvoiceModel> getInvoiceByStatus(String invoiceId, PStatus status);
+  Future<InvoiceModel> getInvoiceByStatus(String invoiceId, IStatus status);
   Future<List<InvoiceModel>> getAllInvoicesByStatus(
     String userId,
     String clientId,
-    PStatus status,
+    IStatus status,
   );
-  Future<int> getTotalInvoicesByStatus(String userId, PStatus status);
+  Future<int> getTotalInvoicesByStatus(String userId, IStatus status);
   Future<int> getTotalInvoices(String userId);
   Future<int> getMonthlyInvoices(String userId);
 }
@@ -100,7 +101,7 @@ class InvoiceRemoteDataSourceImpl implements InvoiceRemoteDataSource {
   @override
   Future<InvoiceModel> getInvoiceByStatus(
     String invoiceId,
-    PStatus status,
+    IStatus status,
   ) async {
     try {
       final invoiceData = await supabaseClient
@@ -153,7 +154,7 @@ class InvoiceRemoteDataSourceImpl implements InvoiceRemoteDataSource {
   }
 
   @override
-  Future<int> getTotalInvoicesByStatus(String userId, PStatus status) async {
+  Future<int> getTotalInvoicesByStatus(String userId, IStatus status) async {
     try {
       final res = await supabaseClient
           .from('invoice')
@@ -175,7 +176,7 @@ class InvoiceRemoteDataSourceImpl implements InvoiceRemoteDataSource {
   Future<List<InvoiceModel>> getAllInvoicesByStatus(
     String userId,
     String clientId,
-    PStatus status,
+    IStatus status,
   ) async {
     try {
       final invoices = await supabaseClient

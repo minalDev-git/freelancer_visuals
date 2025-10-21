@@ -33,6 +33,7 @@ abstract interface class ProjectRepository {
   });
   Future<Either<Failure, bool>> deleteProject(String projectId);
   Future<Either<Failure, Project>> getProject(String projectName);
+  Future<Either<Failure, Project>> getProjectById(String projectId);
   Future<Either<Failure, Project>> getProjectByStatus(
     String clientId,
     PStatus status,

@@ -3,7 +3,7 @@ import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/core/usecase/usecase.dart';
 
 import 'package:freelancer_visuals/features/projects/domain/entities/invoice.dart';
-import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
+
 import 'package:freelancer_visuals/features/projects/domain/repositories/invoice_repository.dart';
 
 class GetAllInvoicesByStatus
@@ -25,7 +25,7 @@ class GetAllInvoicesByStatus
 class AllInvoiceStatusParams {
   final String userId;
   final String clientId;
-  final PStatus status;
+  final IStatus status;
   AllInvoiceStatusParams({
     required this.clientId,
     required this.status,

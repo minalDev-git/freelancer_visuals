@@ -3,7 +3,6 @@ import 'package:freelancer_visuals/core/error/faliures.dart';
 import 'package:freelancer_visuals/core/usecase/usecase.dart';
 
 import 'package:freelancer_visuals/features/projects/domain/entities/invoice.dart';
-import 'package:freelancer_visuals/features/projects/domain/entities/project.dart';
 import 'package:freelancer_visuals/features/projects/domain/repositories/invoice_repository.dart';
 
 class GetInvoiceByStatus implements UseCase<Invoice, InvoiceStatusParams> {
@@ -20,7 +19,7 @@ class GetInvoiceByStatus implements UseCase<Invoice, InvoiceStatusParams> {
 
 class InvoiceStatusParams {
   final String invoiceId;
-  final PStatus status;
+  final IStatus status;
 
   InvoiceStatusParams({required this.invoiceId, required this.status});
 }

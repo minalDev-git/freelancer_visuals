@@ -7,6 +7,7 @@ import 'package:freelancer_visuals/features/projects/domain/usecases/project/get
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_all_projects_of_client.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_monthly_projects.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project.dart';
+import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project_by_id.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_project_by_status.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_total_projects.dart';
 import 'package:freelancer_visuals/features/projects/domain/usecases/project/get_total_projects_by_status.dart';
@@ -28,6 +29,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   // final GetTotalProjectsByStatus _getTotalProjectsByStatus;
   final GetTotalProjects _getTotalProjects;
   final UpdateProject _updateProject;
+  final GetProjectById _getProjectById;
+
   ProjectBloc({
     required UploadProject uploadProject,
     required DeleteProject deleteProject,
@@ -40,6 +43,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     required GetTotalProjectsByStatus getTotalProjectsByStatus,
     required GetTotalProjects getTotalProjects,
     required UpdateProject updateProject,
+    required GetProjectById getProjectById,
   }) : _uploadProject = uploadProject,
        _updateProject = updateProject,
        _deleteProject = deleteProject,
@@ -50,6 +54,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
        _getProject = getProject,
        _getProjectByStatus = getProjectByStatus,
        _getTotalProjects = getTotalProjects,
+       _getProjectById = getProjectById,
        //  _getTotalProjectsByStatus = getTotalProjectsByStatus,
        super(ProjectInitial()) {
     on<ProjectEvent>((event, emit) {
@@ -65,6 +70,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     on<ProjectSearchByStatus>(_onProjectSearchByStatus);
     on<AllProjectsByStatusList>(_onAllProjectsByStatus);
     on<AllClientProjects>(_onGetAllClientProjects);
+    on<ProjectSearchByID>(_onProjectSearchById);
   }
 
   void _onProjectUpload(ProjectUpload event, Emitter<ProjectState> emit) async {
@@ -119,6 +125,19 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   void _onProjectSearch(ProjectSearch event, Emitter<ProjectState> emit) async {
     final res = await _getProject(
       GetProjectParams(projectName: event.projectName),
+    );
+    res.fold(
+      (l) => emit(ProjectFailure(l.message)),
+      (r) => emit(ProjectUploadSuccess()),
+    );
+  }
+
+  void _onProjectSearchById(
+    ProjectSearchByID event,
+    Emitter<ProjectState> emit,
+  ) async {
+    final res = await _getProjectById(
+      GetProjectByIDParams(projectId: event.projectId),
     );
     res.fold(
       (l) => emit(ProjectFailure(l.message)),
